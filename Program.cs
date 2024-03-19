@@ -1,33 +1,51 @@
-using InventoryItems.Data;
-using Microsoft.EntityFrameworkCore;
+//using inventoryitems.data;
+//using microsoft.entityframeworkcore;
 
-var builder = WebApplication.CreateBuilder(args);
+//var builder = webapplication.createbuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+//// add services to the container.
+//builder.services.addcontrollers();
+//// learn more about configuring swagger/openapi at https://aka.ms/aspnetcore/swashbuckle
+//builder.services.addendpointsapiexplorer();
+//builder.services.addswaggergen();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+//var connectionstring = builder.configuration.getconnectionstring("defaultconnection") ?? throw new invalidoperationexception("connection string 'defaultconnection' not found.");
+//builder.services.adddbcontext<applicationdbcontext>(options =>
+//    options.usemysql(connectionstring, serverversion.autodetect(connectionstring)));
 
-var app = builder.Build();
+//var app = builder.build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+//// configure the http request pipeline.
+//if (app.environment.isdevelopment())
+//{
+//    app.useswagger();
+//    app.useswaggerui();
+//}
+
+//app.usehttpsredirection();
+
+//app.useauthorization();
+
+//app.mapget("/", () => "welcome! see endpoints /swagger/index.html");
+
+//app.mapcontrollers();
+
+//app.run();
+
+namespace InventoryItems
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            CreateHostBuilder(args).Build().Run();
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+    }
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapGet("/", () => "Welcome! See endpoints /swagger/index.html");
-
-app.MapControllers();
-
-app.Run();
